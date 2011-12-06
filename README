@@ -1,0 +1,21 @@
+spark.c
+=======
+
+A C implementation of [spark](https://github.com/holman/spark). Very much work
+in progress.
+
+Usage
+-----
+
+./spark NUMBERS
+
+NUMBERS is a list of decimal numbers (or hexadecimal if compiled with
+C99) with arbitrary seperators. Anything can be used to seperate items in the
+list as long as it is not a digit, "+", "-", "e", "E" or your locales decimal
+point ("." in English ones).
+
+The two following examples give the same result:
+
+    ./spark 2 3 1 12
+    ./spark 2.00fgt+3,1 1.2e1
+
