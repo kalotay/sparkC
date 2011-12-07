@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     int n_elements = 0;
     double elements[MAX_INPUT];
     double min_element = HUGE_VAL;
-    double max_element = - HUGE_VAL;
+    double max_element = -HUGE_VAL;
 
     if (argc < 2)
         return -1;
@@ -29,13 +29,17 @@ int main(int argc, char* argv[])
                 ++to_be_processed;
             /* strtod did recognise a number */
             } else {
-                elements[n_elements++] = value;
-                min_element = value < min_element ? value : min_element;
-                max_element = value > max_element ? value : max_element;
+                /* avoid overflow */
+                /* TODO: deal with underflow */
+                if (value != HUGE_VAL && value != -HUGE_VAL) {
+                    elements[n_elements++] = value;
+                    min_element = value < min_element ? value : min_element;
+                    max_element = value > max_element ? value : max_element;
 
-                /* array full; get out of here */
-                if (n_elements == MAX_INPUT)
-                    goto cleanup;
+                    /* array full; get out of here */
+                    if (n_elements == MAX_INPUT)
+                        goto cleanup;
+                }
 
                 /* to_be_processed was shifted to point to the character
                  * following the last on of the number. Shift process_from to
