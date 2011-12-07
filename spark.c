@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <errno.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,15 +24,15 @@ int main(int argc, char* argv[])
 
         while (*process_from != '\0') {
             double value = strtod(process_from, &to_be_processed);
+            int err_strtod = errno;
             /* strtod did not recognise a number */
             if (process_from == to_be_processed) {
                 ++process_from;
                 ++to_be_processed;
             /* strtod did recognise a number */
             } else {
-                /* avoid overflow */
-                /* TODO: deal with underflow */
-                if (value != HUGE_VAL && value != -HUGE_VAL) {
+                /* avoid overflow and underflow */
+                if (err_strtod != ERANGE) {
                     elements[n_elements++] = value;
                     min_element = value < min_element ? value : min_element;
                     max_element = value > max_element ? value : max_element;
