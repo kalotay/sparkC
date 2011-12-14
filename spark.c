@@ -11,7 +11,8 @@ int parse_input(char *input,
                 double values[],
                 double *min_value,
                 double *max_value,
-                size_t n);
+                size_t n,
+                int offset);
 
 int main(int argc, char *argv[])
 {
@@ -26,11 +27,12 @@ int main(int argc, char *argv[])
 
     int i;
     for (i = 1; i < argc; ++i) {
-        n_elements = parse_input(argv[i],
+        n_elements += parse_input(argv[i],
                                  elements,
                                  &min_element,
                                  &max_element,
-                                 MAX_INPUT- n_elements);
+                                 MAX_INPUT- n_elements,
+                                 n_elements);
         if (n_elements >= MAX_INPUT) {
             break;
         }
@@ -54,7 +56,8 @@ int parse_input(char *input,
                 double values[],
                 double *min_value,
                 double *max_value,
-                size_t n)
+                size_t n,
+                int offset)
 {
     char* process_from = input;
     char* to_be_processed = input;
@@ -75,7 +78,7 @@ int parse_input(char *input,
         } else {
             /* avoid overflow and underflow */
             if (err_strtod != ERANGE) {
-                values[n_elements++] = value;
+                values[offset + n_elements++] = value;
                 *min_value = value < *min_value ? value : *min_value;
                 *max_value = value > *max_value ? value : *max_value;
 
