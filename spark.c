@@ -69,7 +69,6 @@ int parse_input(char *input,
             break;
 
         double value = strtod(process_from, &to_be_processed);
-        int err_strtod = errno;
         /* strtod did not recognise a number */
         if (process_from == to_be_processed) {
             ++process_from;
@@ -77,7 +76,7 @@ int parse_input(char *input,
         /* strtod did recognise a number */
         } else {
             /* avoid overflow and underflow */
-            if (err_strtod != ERANGE) {
+            if (errno != ERANGE) {
                 values[offset + n_elements++] = value;
                 *min_value = value < *min_value ? value : *min_value;
                 *max_value = value > *max_value ? value : *max_value;
@@ -89,6 +88,7 @@ int parse_input(char *input,
              * point to the same character */
             process_from = to_be_processed;
         }
+        errno = 0;
     }
 
     return n_elements;
