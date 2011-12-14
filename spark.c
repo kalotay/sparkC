@@ -14,6 +14,11 @@ int parse_input(char *input,
                 size_t n,
                 int offset);
 
+void print_sparkline(double values[],
+                     double min_value,
+                     double max_value,
+                     int n);
+
 int main(int argc, char *argv[])
 {
     int n_elements = 0;
@@ -38,18 +43,27 @@ int main(int argc, char *argv[])
         }
     }
 
-    assert(min_element <= max_element);
-    double scaling_factor = max_element - min_element;
+    print_sparkline(elements, min_element, max_element, n_elements);
+
+    /* TODO: return appropriate values */
+    return 0;
+}
+
+void print_sparkline(double values[],
+                     double min_value,
+                     double max_value,
+                     int n)
+{
+    assert(min_value <= max_value);
+    double scaling_factor = max_value - min_value;
     /* Avoid division by zero if all elements have the same value */
     scaling_factor = scaling_factor != 0 ? scaling_factor : 1;
     int j;
-    for (j = 0; j < n_elements; ++j) {
+    for (j = 0; j < n; ++j) {
         /* TODO: use appropriate block elements from unicode */
-        putchar(48 + (int)(7 * (elements[j] - min_element) / scaling_factor));
+        putchar(48 + (int)(7 * (values[j] - min_value) / scaling_factor));
     }
     putchar('\n');
-
-    return 0;
 }
 
 int parse_input(char *input,
