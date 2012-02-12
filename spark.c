@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
                                  elements,
                                  &min_element,
                                  &max_element,
-                                 MAX_INPUT- n_elements,
+                                 MAX_INPUT - n_elements,
                                  n_elements);
         if (n_elements >= MAX_INPUT) {
             break;
@@ -62,7 +62,6 @@ void print_sparkline(double values[],
     scaling_factor = scaling_factor != 0 ? scaling_factor : 1;
     int j;
     for (j = 0; j < n; ++j) {
-        /* TODO: use appropriate block elements from unicode */
         printf("%s",
                blocks[(int)(7 * (values[j] - min_value) / scaling_factor)]);
     }
@@ -105,6 +104,7 @@ int parse_input(char *input,
              * point to the same character */
             process_from = to_be_processed;
         }
+        /* reset errno so more numbers can be added */
         errno = 0;
     }
 
