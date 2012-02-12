@@ -19,8 +19,8 @@ The two following examples give the same result:
     ./spark 2 3 1 12
     ./spark 2.00fgt+3,1 1.2e1
 
-Install
--------
+Build
+-----
 
     cc [-o name] -lm spark.c
     
@@ -30,10 +30,8 @@ Tested under gcc 4.4.3 and clang 1.1 under Ubuntu 10.04.
 TODO
 ----
 
-* Use actual Unicode block fractions instead of numbers
 * Proper error handling
 * Tests
-* Modularise code
 * Help text
 * Investigate locale dependency of strtod
 * Investigate C99 effects to strtod (hexadecimal numbers + NaN + Infinity)
