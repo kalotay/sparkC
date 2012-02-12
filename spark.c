@@ -19,6 +19,8 @@ void print_sparkline(double values[],
                      double max_value,
                      int n);
 
+static const char *blocks[8] = {"▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"};
+
 int main(int argc, char *argv[])
 {
     int n_elements = 0;
@@ -61,7 +63,8 @@ void print_sparkline(double values[],
     int j;
     for (j = 0; j < n; ++j) {
         /* TODO: use appropriate block elements from unicode */
-        putchar(48 + (int)(7 * (values[j] - min_value) / scaling_factor));
+        printf("%s",
+               blocks[(int)(7 * (values[j] - min_value) / scaling_factor)]);
     }
     putchar('\n');
 }
