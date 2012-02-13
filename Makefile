@@ -1,0 +1,2 @@
+all : spark
+.PHONY: all
