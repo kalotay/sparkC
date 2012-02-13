@@ -22,10 +22,13 @@ The two following examples give the same result:
 Build
 -----
 
-    cc [-o name] -lm spark.c
-    
+    make  # will run something like cc -o spark -lm spark.c
+
 where cc is your C compiler command. Or use whatever C compiler option you want.
-Tested under gcc 4.4.3 and clang 1.1 under Ubuntu 10.04.
+Tested under:
+
+  - gcc 4.4.3 and clang 1.1 (Ubuntu 10.04)
+  - gcc 4.6.2 and clang 2.9 (Fedora 16)
 
 TODO
 ----
