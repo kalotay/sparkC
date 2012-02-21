@@ -40,9 +40,7 @@ int main(int argc, char *argv[])
                                  &max_element,
                                  MAX_INPUT - n_elements,
                                  n_elements);
-        if (n_elements >= MAX_INPUT) {
-            break;
-        }
+        if (n_elements >= MAX_INPUT) break;
     }
 
     print_sparkline(elements, min_element, max_element, n_elements);
@@ -78,11 +76,12 @@ int parse_input(char *input,
     char* process_from = input;
     char* to_be_processed = input;
     int n_elements = 0;
+    double local_min = *min_value;
+    double local_max = *max_value;
 
     while (*process_from != '\0') {
         /* array full; get out of here */
-        if (n_elements == n)
-            break;
+        if (n_elements == n) break;
 
         double value = strtod(process_from, &to_be_processed);
         /* strtod did not recognise a number */
@@ -94,9 +93,8 @@ int parse_input(char *input,
             /* avoid overflow and underflow */
             if (errno != ERANGE) {
                 values[offset + n_elements++] = value;
-                *min_value = value < *min_value ? value : *min_value;
-                *max_value = value > *max_value ? value : *max_value;
-
+                if (value < local_min) local_min = value;
+                if (value > local_max) local_max = value;
             }
 
             /* to_be_processed was shifted to point to the character
@@ -108,5 +106,7 @@ int parse_input(char *input,
         errno = 0;
     }
 
+    *min_value = local_min;
+    *max_value = local_max;
     return n_elements;
 }
